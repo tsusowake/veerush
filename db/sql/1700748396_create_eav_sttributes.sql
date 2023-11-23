@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS eav_attribute_options
     eav_attribute_code VARCHAR(255)  NOT NULL,
     value              VARCHAR(1024) NOT NULL,
     ordering           SMALLINT      NOT NULL CHECK (ordering >= 0),
-    visible            BOOLEAN       NOT NULL DEFAULT FALSE,
+    is_visible         BOOLEAN       NOT NULL DEFAULT FALSE,
     created_at         TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT eav_attribute_options_fk_eav_attribute_code FOREIGN KEY (eav_attribute_code) REFERENCES eav_attributes (code)
 );
