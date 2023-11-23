@@ -3,25 +3,29 @@ package main
 import (
 	"context"
 	"fmt"
-	"os"
-
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/tsusowake/veerush/internal/config"
+	"log"
 )
+import "github.com/kelseyhightower/envconfig"
 
 func main() {
-	conn, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
-		os.Exit(1)
-	}
-	defer conn.Close(context.Background())
-
-	var greeting string
-	err = conn.QueryRow(context.Background(), "select 'Hello, world!'").Scan(&greeting)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
+	var conf config.Config
+	if err := envconfig.Process("", &conf); err != nil {
+		log.Fatal(err)
 	}
 
-	fmt.Println(greeting)
+	dbpool, err := pgxpool.New(context.Background(), conf.DB.ConnString())
+	if err != nil {
+		panic(fmt.Sprintf("Unable to connect to database: %v\n", err))
+	}
+	defer dbpool.Close()
+
+	var userID string
+	err = dbpool.QueryRow(context.Background(), "select id from users").Scan(&userID)
+	if err != nil {
+		panic(fmt.Sprintf("QueryRow failed: %v\n", err))
+	}
+
+	fmt.Println(userID)
 }
