@@ -1,0 +1,8 @@
+FROM postgres:15.5-bullseye
+
+ENV POSTGRES_USER veerush
+ENV POSTGRES_PASSWORD password
+ENV POSTGRES_DB veerush
+ENV POSTGRES_INITDB_ARGS --encoding=UTF-8 --locale=C
+
+EXPOSE 5432
