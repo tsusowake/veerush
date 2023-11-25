@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/tsusowake/veerush/internal/config"
 	"log"
+
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/kelseyhightower/envconfig"
+
+	"github.com/tsusowake/veerush/internal/config"
 )
-import "github.com/kelseyhightower/envconfig"
 
 func main() {
 	var conf config.Config
