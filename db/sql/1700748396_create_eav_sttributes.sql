@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS eav_attributes
     max_length   SMALLINT CHECK (max_length >= 0),
     is_selection BOOLEAN      NOT NULL DEFAULT FALSE,
     is_required  BOOLEAN      NOT NULL DEFAULT FALSE,
-    is_visible   BOOLEAN      NOT NULL DEFAULT FALSE,
     created_at   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
