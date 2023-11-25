@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS eav_attributes
 (
     code         VARCHAR(255) PRIMARY KEY,
     name         VARCHAR(255) NOT NULL,
-    value_type   SMALLINT     NOT NULL CHECK (min_length >= 0),
+    value_type   SMALLINT     NOT NULL CHECK (value_type >= 0),
     description  VARCHAR(255) NOT NULL,
     field_format VARCHAR(255),
     regexp       VARCHAR(255),

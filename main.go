@@ -9,6 +9,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 
 	"github.com/tsusowake/veerush/internal/config"
+	"github.com/tsusowake/veerush/internal/database/generated"
 )
 
 func main() {
@@ -23,11 +24,13 @@ func main() {
 	}
 	defer dbpool.Close()
 
-	var userID string
-	err = dbpool.QueryRow(context.Background(), "select id from users").Scan(&userID)
-	if err != nil {
-		panic(fmt.Sprintf("QueryRow failed: %v\n", err))
-	}
+	queries := generated.New(dbpool)
 
-	fmt.Println(userID)
+	u, e := queries.CreateUser(context.Background())
+	fmt.Printf("u: %#v\n", u)
+	fmt.Printf("e: %#v\n", e)
+
+	uu, ee := queries.GetUserByID(context.Background(), 1)
+	fmt.Printf("uu: %#v\n", uu)
+	fmt.Printf("ee: %#v\n", ee)
 }
