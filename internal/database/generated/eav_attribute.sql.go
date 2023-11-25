@@ -7,7 +7,55 @@ package generated
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
+
+const createEavAttribute = `-- name: CreateEavAttribute :one
+insert into eav_attributes (code,
+                            name,
+                            value_type,
+                            description,
+                            field_format,
+                            regexp,
+                            min_length,
+                            max_length,
+                            is_selection,
+                            is_required)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+returning code
+`
+
+type CreateEavAttributeParams struct {
+	Code        string
+	Name        string
+	ValueType   int16
+	Description string
+	FieldFormat pgtype.Text
+	Regexp      pgtype.Text
+	MinLength   pgtype.Int2
+	MaxLength   pgtype.Int2
+	IsSelection bool
+	IsRequired  bool
+}
+
+func (q *Queries) CreateEavAttribute(ctx context.Context, arg CreateEavAttributeParams) (string, error) {
+	row := q.db.QueryRow(ctx, createEavAttribute,
+		arg.Code,
+		arg.Name,
+		arg.ValueType,
+		arg.Description,
+		arg.FieldFormat,
+		arg.Regexp,
+		arg.MinLength,
+		arg.MaxLength,
+		arg.IsSelection,
+		arg.IsRequired,
+	)
+	var code string
+	err := row.Scan(&code)
+	return code, err
+}
 
 const getEavAttributeByCode = `-- name: GetEavAttributeByCode :one
 select code, name, value_type, description, field_format, regexp, min_length, max_length, is_selection, is_required, created_at

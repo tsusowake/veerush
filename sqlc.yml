@@ -8,3 +8,8 @@ sql:
         package: "generated"
         out: "internal/database/generated"
         sql_package: "pgx/v5"
+        overrides:
+          - db_type: "bigserial"
+            go_type: "uint64"
+          - column: "eav_attribute_options.ordering"
+            go_type: "uint16"

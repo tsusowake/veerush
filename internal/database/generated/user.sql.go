@@ -12,14 +12,14 @@ import (
 const createUser = `-- name: CreateUser :one
 insert into users default
 values
-returning id, created_at
+returning id
 `
 
-func (q *Queries) CreateUser(ctx context.Context) (User, error) {
+func (q *Queries) CreateUser(ctx context.Context) (uint64, error) {
 	row := q.db.QueryRow(ctx, createUser)
-	var i User
-	err := row.Scan(&i.ID, &i.CreatedAt)
-	return i, err
+	var id uint64
+	err := row.Scan(&id)
+	return id, err
 }
 
 const deleteUserByID = `-- name: DeleteUserByID :exec
@@ -28,7 +28,7 @@ from users
 where id = $1
 `
 
-func (q *Queries) DeleteUserByID(ctx context.Context, id int64) error {
+func (q *Queries) DeleteUserByID(ctx context.Context, id uint64) error {
 	_, err := q.db.Exec(ctx, deleteUserByID, id)
 	return err
 }
@@ -40,7 +40,7 @@ where id = $1
 limit 1
 `
 
-func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
+func (q *Queries) GetUserByID(ctx context.Context, id uint64) (User, error) {
 	row := q.db.QueryRow(ctx, getUserByID, id)
 	var i User
 	err := row.Scan(&i.ID, &i.CreatedAt)

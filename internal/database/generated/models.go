@@ -23,10 +23,10 @@ type EavAttribute struct {
 }
 
 type EavAttributeOption struct {
-	ID               int64
+	ID               uint64
 	EavAttributeCode string
 	Value            string
-	Ordering         int16
+	Ordering         uint16
 	IsVisible        bool
 	CreatedAt        pgtype.Timestamp
 }
@@ -39,6 +39,6 @@ type EavAttributeValue struct {
 }
 
 type User struct {
-	ID        int64
+	ID        uint64
 	CreatedAt pgtype.Timestamp
 }

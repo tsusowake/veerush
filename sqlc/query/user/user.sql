@@ -7,7 +7,7 @@ limit 1;
 -- name: CreateUser :one
 insert into users default
 values
-returning *;
+returning id;
 
 -- name: DeleteUserByID :exec
 delete
