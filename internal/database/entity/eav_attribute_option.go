@@ -1,9 +1,29 @@
 package entity
 
+import "github.com/tsusowake/veerush/internal/database/generated"
+
 type EavAttributeOption struct {
-	ID               uint64 `db:"id"`
-	EavAttributeCode string `db:"eav_attribute_code"`
-	Value            string `db:"value"`
-	Ordering         uint16 `db:"ordering"`
-	IsVisible        bool   `db:"is_visible"`
+	ID               uint64
+	EavAttributeCode string
+	Value            string
+	Ordering         uint16
+	IsVisible        bool
+}
+
+func (e *EavAttributeOption) FromModel(m *generated.EavAttributeOption) *EavAttributeOption {
+	return &EavAttributeOption{
+		ID:               m.ID,
+		EavAttributeCode: m.EavAttributeCode,
+		Value:            m.Value,
+		Ordering:         m.Ordering,
+		IsVisible:        m.IsVisible,
+	}
+}
+
+func (e *EavAttributeOption) FromModels(m []generated.EavAttributeOption) []*EavAttributeOption {
+	ret := make([]*EavAttributeOption, len(m))
+	for i, mm := range m {
+		ret[i] = e.FromModel(&mm)
+	}
+	return ret
 }

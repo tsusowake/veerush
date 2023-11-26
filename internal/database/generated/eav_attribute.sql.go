@@ -29,7 +29,7 @@ returning code
 type CreateEavAttributeParams struct {
 	Code        string
 	Name        string
-	ValueType   int16
+	ValueType   uint8
 	Description string
 	FieldFormat pgtype.Text
 	Regexp      pgtype.Text

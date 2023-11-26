@@ -6,16 +6,16 @@ import (
 )
 
 type EavAttribute struct {
-	Code        string    `db:"code"`
-	Name        string    `db:"name"`
-	ValueType   ValueType `db:"value_type"`
-	Description string    `db:"description"`
-	FieldFormat *string   `db:"field_format"`
-	Regexp      *string   `db:"regexp"`
-	MinLength   *uint16   `db:"min_length"`
-	MaxLength   *uint16   `db:"max_length"`
-	IsSelection bool      `db:"is_selection"`
-	IsRequired  bool      `db:"is_required"`
+	Code        string
+	Name        string
+	ValueType   ValueType
+	Description string
+	FieldFormat *string
+	Regexp      *string
+	MinLength   *uint16
+	MaxLength   *uint16
+	IsSelection bool
+	IsRequired  bool
 }
 
 func (e *EavAttribute) FromModel(m *generated.EavAttribute) *EavAttribute {
@@ -44,9 +44,13 @@ func (e *EavAttribute) FromModels(m []generated.EavAttribute) []*EavAttribute {
 type Code string
 
 const (
-	CodeJobType     = "jobType"
-	CodePosition    = "position"
-	CodeCompanyName = "companyName"
+	CodeValueTypeString          = "code.valueType.string"
+	CodeValueTypeSelectionString = "code.valueType.selection.string"
+	CodeValueTypeInt             = "code.valueType.int"
+	CodeValueTypeSelectionInt    = "code.valueType.selection.int"
+	CodeValueTypeFloat           = "code.valueType.float"
+	CodeValueTypeBool            = "code.valueType.bool"
+	CodeValueTypeDate            = "code.valueType.date"
 )
 
 type ValueType uint8
@@ -59,3 +63,7 @@ const (
 	ValueTypeBool   ValueType = 4
 	ValueTypeDate   ValueType = 5
 )
+
+func (v ValueType) Value() uint8 {
+	return uint8(v)
+}

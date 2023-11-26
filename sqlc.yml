@@ -11,5 +11,9 @@ sql:
         overrides:
           - db_type: "bigserial"
             go_type: "uint64"
+          - column: "eav_attributes.value_type"
+            go_type: "uint8"
           - column: "eav_attribute_options.ordering"
             go_type: "uint16"
+          - column: "eav_attribute_values.user_id"
+            go_type: "uint64"

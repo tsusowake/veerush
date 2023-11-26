@@ -29,8 +29,7 @@ func main() {
 	defer dbpool.Close()
 
 	p := process.NewProcess(dbpool)
-
-	v, err := p.CreateUser(context.Background())
-	fmt.Printf("user: %+v\n", v)
-	fmt.Printf("err: %+v\n", err)
+	if _, err := p.DoVeerush(context.Background()); err != nil {
+		panic(err)
+	}
 }

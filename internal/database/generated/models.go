@@ -11,7 +11,7 @@ import (
 type EavAttribute struct {
 	Code        string
 	Name        string
-	ValueType   int16
+	ValueType   uint8
 	Description string
 	FieldFormat pgtype.Text
 	Regexp      pgtype.Text
@@ -32,7 +32,7 @@ type EavAttributeOption struct {
 }
 
 type EavAttributeValue struct {
-	UserID           int64
+	UserID           uint64
 	EavAttributeCode string
 	Value            string
 	CreatedAt        pgtype.Timestamp

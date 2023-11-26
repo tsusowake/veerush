@@ -44,15 +44,15 @@ func (e *EavAttribute) ListEavAttributes(
 
 func (e *EavAttribute) CreateEavAttribute(
 	ctx context.Context,
-	arg repository.CreateEavAttributeParams,
+	arg *repository.CreateEavAttributeParams,
 ) (string, error) {
 	v, err := e.query.CreateEavAttribute(ctx, generated.CreateEavAttributeParams{
 		Code:        arg.Code,
 		Name:        arg.Name,
-		ValueType:   arg.ValueType,
+		ValueType:   arg.ValueType.Value(),
 		Description: arg.Description,
-		FieldFormat: conv.ToPgTypeText(arg.FieldFormat),
-		Regexp:      conv.ToPgTypeText(arg.Regexp),
+		FieldFormat: conv.ToPgTypeText(&arg.FieldFormat),
+		Regexp:      conv.ToPgTypeText(&arg.Regexp),
 		MinLength:   conv.ToPgTypeInt2(arg.MinLength),
 		MaxLength:   conv.ToPgTypeInt2(arg.MaxLength),
 		IsSelection: arg.IsSelection,

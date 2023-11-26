@@ -29,5 +29,8 @@ func ToPgTypeText(v *string) pgtype.Text {
 	if v != nil {
 		return pgtype.Text{String: *v, Valid: true}
 	}
+	if *v != "" {
+		return pgtype.Text{String: *v, Valid: true}
+	}
 	return pgtype.Text{String: "", Valid: false}
 }
